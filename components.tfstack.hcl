@@ -15,6 +15,20 @@ component "s3" {
     random = provider.random.this
   }
 }
+component "s3sadf" {
+  for_each = var.regions
+
+  source = "./s3"
+
+  inputs = {
+    region = each.value
+  }
+
+  providers = {
+    aws    = provider.aws.configurations[each.value]
+    random = provider.random.this
+  }
+}
 
 component "lambda" {
   for_each = var.regions
